@@ -1,0 +1,106 @@
+{
+  "title": "Code Example Generator",
+  "description": "Generates comprehensive code examples for MCP implementations",
+  "template": "# {{title}}\n\n## Description\n\n{{description}}\n\n## Implementation\n\n### {{language}} Example\n\n```{{language}}\n{{code}}\n```\n\n## Explanation\n\n{{explanation}}\n\n## Key Points\n\n{{key_points}}\n\n## Usage Example\n\n```{{language}}\n{{usage_example}}\n```\n\n{{usage_explanation}}\n\n## Error Handling\n\n```{{language}}\n{{error_handling}}\n```\n\n## Testing\n\n```{{language}}\n{{test_code}}\n```\n\n## Variations\n\n{{variations}}\n\n## Performance Considerations\n\n{{performance_notes}}\n\n## Security Notes\n\n{{security_notes}}\n\n---\n\n*Generated with MCP Learning Server - Code Example Generator*",
+  "parameters": [
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Title of the code example",
+      "required": true
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Description of what the code does",
+      "required": true
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "description": "Programming language (python, javascript, etc.)",
+      "required": true
+    },
+    {
+      "name": "code",
+      "type": "string",
+      "description": "Main implementation code",
+      "required": true
+    },
+    {
+      "name": "explanation",
+      "type": "string",
+      "description": "Detailed explanation of the implementation",
+      "required": true
+    },
+    {
+      "name": "key_points",
+      "type": "string",
+      "description": "Key points to understand about the code",
+      "required": true
+    },
+    {
+      "name": "usage_example",
+      "type": "string",
+      "description": "Example of how to use the code",
+      "required": true
+    },
+    {
+      "name": "usage_explanation",
+      "type": "string",
+      "description": "Explanation of the usage example",
+      "required": true
+    },
+    {
+      "name": "error_handling",
+      "type": "string",
+      "description": "Error handling code example",
+      "required": true
+    },
+    {
+      "name": "test_code",
+      "type": "string",
+      "description": "Unit test example",
+      "required": true
+    },
+    {
+      "name": "variations",
+      "type": "string",
+      "description": "Alternative implementations or variations",
+      "required": false
+    },
+    {
+      "name": "performance_notes",
+      "type": "string",
+      "description": "Performance considerations and optimizations",
+      "required": false
+    },
+    {
+      "name": "security_notes",
+      "type": "string",
+      "description": "Security considerations and best practices",
+      "required": false
+    }
+  ],
+  "examples": [
+    {
+      "description": "Creating a simple MCP tool",
+      "arguments": {
+        "title": "Simple Calculator Tool",
+        "description": "A basic calculator tool that performs arithmetic operations",
+        "language": "python",
+        "code": "from tools.registry import tool\n\n@tool(\n    name=\"calculator\",\n    description=\"Perform basic arithmetic operations\",\n    parameters={\n        \"operation\": {\"type\": \"string\", \"enum\": [\"add\", \"subtract\", \"multiply\", \"divide\"]},\n        \"a\": {\"type\": \"number\", \"description\": \"First number\"},\n        \"b\": {\"type\": \"number\", \"description\": \"Second number\"}\n    }\n)\ndef calculator(operation: str, a: float, b: float) -> float:\n    \"\"\"Perform arithmetic operations.\"\"\"\n    if operation == \"add\":\n        return a + b\n    elif operation == \"subtract\":\n        return a - b\n    elif operation == \"multiply\":\n        return a * b\n    elif operation == \"divide\":\n        if b == 0:\n            raise ValueError(\"Cannot divide by zero\")\n        return a / b\n    else:\n        raise ValueError(f\"Unknown operation: {operation}\")",
+        "explanation": "This tool uses the @tool decorator to register a calculator function with the MCP server. The decorator specifies the tool name, description, and parameter schema. The function implements basic arithmetic operations with proper error handling.",
+        "key_points": "- Use the @tool decorator for registration\n- Define clear parameter schemas\n- Include proper type hints\n- Handle edge cases like division by zero\n- Provide descriptive error messages",
+        "usage_example": "# The tool is automatically registered and can be called via MCP\n# Example MCP message:\n{\n  \"type\": \"call_tool\",\n  \"id\": \"1\",\n  \"params\": {\n    \"name\": \"calculator\",\n    \"arguments\": {\n      \"operation\": \"add\",\n      \"a\": 5,\n      \"b\": 3\n    }\n  }\n}",
+        "usage_explanation": "Once registered, the tool can be called through the MCP protocol using the call_tool message type with the appropriate parameters.",
+        "error_handling": "try:\n    result = calculator(\"divide\", 10, 0)\nexcept ValueError as e:\n    print(f\"Error: {e}\")\n    # Handle the error appropriately",
+        "test_code": "import pytest\n\ndef test_calculator_add():\n    assert calculator(\"add\", 2, 3) == 5\n\ndef test_calculator_divide_by_zero():\n    with pytest.raises(ValueError, match=\"Cannot divide by zero\"):\n        calculator(\"divide\", 5, 0)\n\ndef test_calculator_invalid_operation():\n    with pytest.raises(ValueError, match=\"Unknown operation\"):\n        calculator(\"invalid\", 1, 2)",
+        "variations": "- Add more operations (power, modulo, square root)\n- Support complex numbers\n- Add memory functions (store/recall)\n- Implement expression parsing",
+        "performance_notes": "This simple calculator has O(1) time complexity. For more complex operations, consider caching results or using optimized math libraries.",
+        "security_notes": "- Validate all inputs to prevent injection attacks\n- Limit the range of numbers to prevent overflow\n- Consider rate limiting for resource-intensive operations"
+      }
+    }
+  ],
+  "tags": ["code", "examples", "implementation", "tutorial"]
+}

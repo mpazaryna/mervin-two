@@ -86,7 +86,7 @@ def echo(message: str, repeat: int = 1, prefix: str = "", suffix: str = "") -> s
         "properties": {
             "format": {
                 "type": "string",
-                "enum": ["iso", "unix", "human", "custom"],
+                "enum": ["iso", "unix", "human", "custom", "utc", "local"],
                 "default": "iso",
                 "description": "Time format to return"
             },
@@ -96,8 +96,9 @@ def echo(message: str, repeat: int = 1, prefix: str = "", suffix: str = "") -> s
             },
             "timezone": {
                 "type": "string",
+                "enum": ["local", "utc"],
                 "default": "local",
-                "description": "Timezone (currently only 'local' supported)"
+                "description": "Timezone to use for timestamp"
             }
         }
     },
@@ -109,33 +110,44 @@ def echo(message: str, repeat: int = 1, prefix: str = "", suffix: str = "") -> s
         {"format": "iso", "result": "2023-12-07T10:30:00.123456"},
         {"format": "unix", "result": "1701944200"},
         {"format": "human", "result": "2023-12-07 10:30:00"},
-        {"format": "custom", "custom_format": "%A, %B %d, %Y", "result": "Thursday, December 07, 2023"}
+        {"format": "custom", "custom_format": "%A, %B %d, %Y", "result": "Thursday, December 07, 2023"},
+        {"format": "utc", "result": "2023-12-07T18:30:00.123456Z"}
     ],
-    category="utility"
+    category="time"
 )
 def time_tool(format: str = "iso", custom_format: str = None, timezone: str = "local") -> str:
     """
     Get current timestamp in various formats.
-    
+
     Args:
         format: Time format to return
         custom_format: Custom strftime format
-        timezone: Timezone (currently only local supported)
-        
+        timezone: Timezone to use
+
     Returns:
         Current timestamp in requested format
-        
+
     Raises:
         ValueError: For invalid format or missing custom_format
     """
-    now = datetime.datetime.now()
-    
+    # Get current time in appropriate timezone
+    if timezone == "utc":
+        now = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
+    else:  # local
+        now = datetime.datetime.now()
+
     if format == "iso":
         return now.isoformat()
     elif format == "unix":
         return str(int(now.timestamp()))
     elif format == "human":
         return now.strftime("%Y-%m-%d %H:%M:%S")
+    elif format == "utc":
+        utc_now = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
+        return utc_now.isoformat() + "Z"
+    elif format == "local":
+        local_now = datetime.datetime.now()
+        return local_now.isoformat()
     elif format == "custom":
         if not custom_format:
             raise ValueError("custom_format is required when format='custom'")
@@ -145,6 +157,137 @@ def time_tool(format: str = "iso", custom_format: str = None, timezone: str = "l
             raise ValueError(f"Invalid custom format: {str(e)}")
     else:
         raise ValueError(f"Unknown time format: {format}")
+
+
+@tool(
+    name="time_calculator",
+    description="Perform calculations with dates and times",
+    parameter_schema={
+        "type": "object",
+        "properties": {
+            "operation": {
+                "type": "string",
+                "enum": ["add_days", "subtract_days", "add_hours", "subtract_hours", "days_between", "format_date"],
+                "description": "Time calculation operation to perform"
+            },
+            "date": {
+                "type": "string",
+                "description": "Date in ISO format (YYYY-MM-DD or YYYY-MM-DDTHH:MM:SS)"
+            },
+            "amount": {
+                "type": "number",
+                "description": "Amount to add/subtract (for add/subtract operations)"
+            },
+            "end_date": {
+                "type": "string",
+                "description": "End date for days_between operation"
+            },
+            "output_format": {
+                "type": "string",
+                "default": "iso",
+                "description": "Output format for result"
+            }
+        },
+        "required": ["operation"]
+    },
+    return_schema={
+        "type": ["string", "number"],
+        "description": "Result of time calculation"
+    },
+    examples=[
+        {"operation": "add_days", "date": "2023-12-07", "amount": 5, "result": "2023-12-12"},
+        {"operation": "days_between", "date": "2023-12-01", "end_date": "2023-12-07", "result": 6}
+    ],
+    category="time"
+)
+def time_calculator(operation: str, date: str = None, amount: float = None,
+                   end_date: str = None, output_format: str = "iso") -> Any:
+    """
+    Perform calculations with dates and times.
+
+    Args:
+        operation: Time calculation operation
+        date: Input date
+        amount: Amount for add/subtract operations
+        end_date: End date for between operations
+        output_format: Output format
+
+    Returns:
+        Result of time calculation
+
+    Raises:
+        ValueError: For invalid operations or date formats
+    """
+    try:
+        if operation in ["add_days", "subtract_days", "add_hours", "subtract_hours", "format_date"]:
+            if not date:
+                date = datetime.datetime.now().isoformat()
+
+            # Parse input date
+            try:
+                if 'T' in date:
+                    dt = datetime.datetime.fromisoformat(date.replace('Z', '+00:00'))
+                else:
+                    dt = datetime.datetime.strptime(date, "%Y-%m-%d")
+            except ValueError:
+                raise ValueError(f"Invalid date format: {date}")
+
+            if operation == "add_days":
+                if amount is None:
+                    raise ValueError("amount is required for add_days operation")
+                result_dt = dt + datetime.timedelta(days=amount)
+            elif operation == "subtract_days":
+                if amount is None:
+                    raise ValueError("amount is required for subtract_days operation")
+                result_dt = dt - datetime.timedelta(days=amount)
+            elif operation == "add_hours":
+                if amount is None:
+                    raise ValueError("amount is required for add_hours operation")
+                result_dt = dt + datetime.timedelta(hours=amount)
+            elif operation == "subtract_hours":
+                if amount is None:
+                    raise ValueError("amount is required for subtract_hours operation")
+                result_dt = dt - datetime.timedelta(hours=amount)
+            elif operation == "format_date":
+                result_dt = dt
+
+            # Format output
+            if output_format == "iso":
+                return result_dt.isoformat()
+            elif output_format == "human":
+                return result_dt.strftime("%Y-%m-%d %H:%M:%S")
+            elif output_format == "date_only":
+                return result_dt.strftime("%Y-%m-%d")
+            else:
+                return result_dt.strftime(output_format)
+
+        elif operation == "days_between":
+            if not date or not end_date:
+                raise ValueError("Both date and end_date are required for days_between operation")
+
+            # Parse dates
+            try:
+                if 'T' in date:
+                    start_dt = datetime.datetime.fromisoformat(date.replace('Z', '+00:00'))
+                else:
+                    start_dt = datetime.datetime.strptime(date, "%Y-%m-%d")
+
+                if 'T' in end_date:
+                    end_dt = datetime.datetime.fromisoformat(end_date.replace('Z', '+00:00'))
+                else:
+                    end_dt = datetime.datetime.strptime(end_date, "%Y-%m-%d")
+            except ValueError as e:
+                raise ValueError(f"Invalid date format: {str(e)}")
+
+            # Calculate difference
+            diff = end_dt - start_dt
+            return diff.days
+
+        else:
+            raise ValueError(f"Unknown operation: {operation}")
+
+    except Exception as e:
+        raise ValueError(f"Time calculation error: {str(e)}")
 
 
 @tool(

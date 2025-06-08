@@ -21,21 +21,24 @@ class MCPProtocolHandler:
     on top of the core MCPServer functionality.
     """
     
-    def __init__(self, server: Optional[MCPServer] = None, debug: bool = False):
+    def __init__(self, server: Optional[MCPServer] = None, debug: bool = False,
+                 resource_dir: str = "./resources", prompt_dir: str = "./prompts"):
         """
         Initialize the protocol handler.
-        
+
         Args:
             server: Optional MCPServer instance (creates new one if None)
             debug: Enable debug mode
+            resource_dir: Directory containing resources
+            prompt_dir: Directory containing prompt templates
         """
-        self.server = server or MCPServer(debug=debug)
+        self.server = server or MCPServer(debug=debug, resource_dir=resource_dir, prompt_dir=prompt_dir)
         self.debug = debug
         self.logger = get_logger("mcp_protocol")
-        
+
         if debug:
             self.logger.setLevel(logging.DEBUG)
-        
+
         self.logger.info("MCP Protocol Handler initialized")
     
     def handle_json_message(self, json_message: str) -> str:
@@ -128,14 +131,17 @@ class MCPProtocolHandler:
             return False
 
 
-def create_protocol_handler(debug: bool = False) -> MCPProtocolHandler:
+def create_protocol_handler(debug: bool = False, resource_dir: str = "./resources",
+                           prompt_dir: str = "./prompts") -> MCPProtocolHandler:
     """
     Factory function to create a protocol handler.
-    
+
     Args:
         debug: Enable debug mode
-        
+        resource_dir: Directory containing resources
+        prompt_dir: Directory containing prompt templates
+
     Returns:
         Configured protocol handler
     """
-    return MCPProtocolHandler(debug=debug)
+    return MCPProtocolHandler(debug=debug, resource_dir=resource_dir, prompt_dir=prompt_dir)

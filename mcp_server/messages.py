@@ -112,6 +112,92 @@ class CallToolResponse(BaseMessage):
     result: Dict[str, Any] = Field(default_factory=dict)
 
 
+class ResourceInfo(BaseModel):
+    """Information about a resource."""
+    id: str
+    path: str
+    title: str
+    description: str
+    mime_type: str = "text/plain"
+    tags: List[str] = Field(default_factory=list)
+
+
+class ListResourcesMessage(BaseMessage):
+    """Message to list available resources."""
+    type: MessageType = MessageType.LIST_RESOURCES
+
+
+class ListResourcesResponse(BaseMessage):
+    """Response with list of available resources."""
+    type: MessageType = MessageType.LIST_RESOURCES
+    result: Dict[str, List[ResourceInfo]] = Field(default_factory=lambda: {"resources": []})
+
+
+class ReadResourceMessage(BaseMessage):
+    """Message to read a specific resource."""
+    type: MessageType = MessageType.READ_RESOURCE
+    params: Dict[str, Any] = Field(default_factory=dict)
+
+    @field_validator('params')
+    @classmethod
+    def validate_resource_params(cls, v):
+        """Validate resource read parameters."""
+        if not isinstance(v, dict):
+            raise ValueError("params must be a dictionary")
+        if 'id' not in v:
+            raise ValueError("Resource ID is required in params")
+        return v
+
+
+class ReadResourceResponse(BaseMessage):
+    """Response from resource read."""
+    type: MessageType = MessageType.READ_RESOURCE
+    result: Dict[str, Any] = Field(default_factory=dict)
+
+
+class PromptInfo(BaseModel):
+    """Information about a prompt."""
+    id: str
+    title: str
+    description: str
+    parameters: List[Dict[str, Any]] = Field(default_factory=list)
+    examples: List[Dict[str, Any]] = Field(default_factory=list)
+    tags: List[str] = Field(default_factory=list)
+
+
+class ListPromptsMessage(BaseMessage):
+    """Message to list available prompts."""
+    type: MessageType = MessageType.LIST_PROMPTS
+
+
+class ListPromptsResponse(BaseMessage):
+    """Response with list of available prompts."""
+    type: MessageType = MessageType.LIST_PROMPTS
+    result: Dict[str, List[PromptInfo]] = Field(default_factory=lambda: {"prompts": []})
+
+
+class GetPromptMessage(BaseMessage):
+    """Message to get a specific prompt."""
+    type: MessageType = MessageType.GET_PROMPT
+    params: Dict[str, Any] = Field(default_factory=dict)
+
+    @field_validator('params')
+    @classmethod
+    def validate_prompt_params(cls, v):
+        """Validate prompt get parameters."""
+        if not isinstance(v, dict):
+            raise ValueError("params must be a dictionary")
+        if 'id' not in v:
+            raise ValueError("Prompt ID is required in params")
+        return v
+
+
+class GetPromptResponse(BaseMessage):
+    """Response from prompt get."""
+    type: MessageType = MessageType.GET_PROMPT
+    result: Dict[str, Any] = Field(default_factory=dict)
+
+
 class ErrorMessage(BaseMessage):
     """Error message for protocol errors."""
     type: MessageType = MessageType.ERROR
@@ -137,6 +223,14 @@ MCPMessage = Union[
     ListToolsResponse,
     CallToolMessage,
     CallToolResponse,
+    ListResourcesMessage,
+    ListResourcesResponse,
+    ReadResourceMessage,
+    ReadResourceResponse,
+    ListPromptsMessage,
+    ListPromptsResponse,
+    GetPromptMessage,
+    GetPromptResponse,
     ErrorMessage,
     NotificationMessage
 ]
@@ -168,6 +262,10 @@ def parse_message(data: Dict[str, Any]) -> MCPMessage:
         MessageType.INITIALIZED: InitializedMessage,
         MessageType.LIST_TOOLS: ListToolsMessage,
         MessageType.CALL_TOOL: CallToolMessage,
+        MessageType.LIST_RESOURCES: ListResourcesMessage,
+        MessageType.READ_RESOURCE: ReadResourceMessage,
+        MessageType.LIST_PROMPTS: ListPromptsMessage,
+        MessageType.GET_PROMPT: GetPromptMessage,
         MessageType.ERROR: ErrorMessage,
         MessageType.NOTIFICATION: NotificationMessage,
     }

@@ -1,0 +1,22 @@
+{
+  "server": {
+    "name": "MCP Learning Server",
+    "version": "0.1.0",
+    "debug": false
+  },
+  "features": {
+    "file_reader": true,
+    "calculator": true,
+    "time_tools": true
+  },
+  "limits": {
+    "max_file_size": 1048576,
+    "max_files": 100
+  },
+  "supported_formats": [
+    "txt",
+    "json",
+    "md",
+    "csv"
+  ]
+}

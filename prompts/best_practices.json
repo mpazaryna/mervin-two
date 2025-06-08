@@ -1,0 +1,155 @@
+{
+  "title": "MCP Best Practices Guide",
+  "description": "Provides comprehensive best practices for MCP development",
+  "template": "# MCP Best Practices: {{category}}\n\n## Overview\n\n{{overview}}\n\n## Core Principles\n\n{{principles}}\n\n## Implementation Guidelines\n\n### {{guideline1_title}}\n\n{{guideline1_content}}\n\n**Example:**\n```{{example_language}}\n{{guideline1_example}}\n```\n\n### {{guideline2_title}}\n\n{{guideline2_content}}\n\n**Example:**\n```{{example_language}}\n{{guideline2_example}}\n```\n\n### {{guideline3_title}}\n\n{{guideline3_content}}\n\n**Example:**\n```{{example_language}}\n{{guideline3_example}}\n```\n\n## Common Mistakes to Avoid\n\n{{common_mistakes}}\n\n## Performance Optimization\n\n{{performance_tips}}\n\n## Security Considerations\n\n{{security_guidelines}}\n\n## Testing Strategies\n\n{{testing_approaches}}\n\n## Monitoring and Debugging\n\n{{monitoring_tips}}\n\n## Checklist\n\n{{checklist}}\n\n## Additional Resources\n\n{{resources}}\n\n---\n\n*Best practices compiled by the MCP Learning Server*",
+  "parameters": [
+    {
+      "name": "category",
+      "type": "string",
+      "description": "Category of best practices (Tools, Resources, Prompts, Security, etc.)",
+      "required": true
+    },
+    {
+      "name": "overview",
+      "type": "string",
+      "description": "Overview of the best practices category",
+      "required": true
+    },
+    {
+      "name": "principles",
+      "type": "string",
+      "description": "Core principles for this category",
+      "required": true
+    },
+    {
+      "name": "guideline1_title",
+      "type": "string",
+      "description": "Title of the first guideline",
+      "required": true
+    },
+    {
+      "name": "guideline1_content",
+      "type": "string",
+      "description": "Content of the first guideline",
+      "required": true
+    },
+    {
+      "name": "guideline1_example",
+      "type": "string",
+      "description": "Code example for the first guideline",
+      "required": true
+    },
+    {
+      "name": "guideline2_title",
+      "type": "string",
+      "description": "Title of the second guideline",
+      "required": true
+    },
+    {
+      "name": "guideline2_content",
+      "type": "string",
+      "description": "Content of the second guideline",
+      "required": true
+    },
+    {
+      "name": "guideline2_example",
+      "type": "string",
+      "description": "Code example for the second guideline",
+      "required": true
+    },
+    {
+      "name": "guideline3_title",
+      "type": "string",
+      "description": "Title of the third guideline",
+      "required": true
+    },
+    {
+      "name": "guideline3_content",
+      "type": "string",
+      "description": "Content of the third guideline",
+      "required": true
+    },
+    {
+      "name": "guideline3_example",
+      "type": "string",
+      "description": "Code example for the third guideline",
+      "required": true
+    },
+    {
+      "name": "example_language",
+      "type": "string",
+      "description": "Programming language for examples",
+      "required": false,
+      "default": "python"
+    },
+    {
+      "name": "common_mistakes",
+      "type": "string",
+      "description": "Common mistakes to avoid",
+      "required": true
+    },
+    {
+      "name": "performance_tips",
+      "type": "string",
+      "description": "Performance optimization tips",
+      "required": true
+    },
+    {
+      "name": "security_guidelines",
+      "type": "string",
+      "description": "Security considerations and guidelines",
+      "required": true
+    },
+    {
+      "name": "testing_approaches",
+      "type": "string",
+      "description": "Testing strategies and approaches",
+      "required": true
+    },
+    {
+      "name": "monitoring_tips",
+      "type": "string",
+      "description": "Monitoring and debugging tips",
+      "required": true
+    },
+    {
+      "name": "checklist",
+      "type": "string",
+      "description": "Checklist of items to verify",
+      "required": true
+    },
+    {
+      "name": "resources",
+      "type": "string",
+      "description": "Additional resources and references",
+      "required": false
+    }
+  ],
+  "examples": [
+    {
+      "description": "Best practices for MCP tool development",
+      "arguments": {
+        "category": "Tool Development",
+        "overview": "Developing effective MCP tools requires careful attention to design, implementation, and user experience. These best practices ensure your tools are reliable, secure, and easy to use.",
+        "principles": "1. **Clarity**: Tools should have clear, descriptive names and documentation\n2. **Reliability**: Handle errors gracefully and provide meaningful feedback\n3. **Security**: Validate inputs and restrict access appropriately\n4. **Performance**: Optimize for common use cases and avoid blocking operations",
+        "guideline1_title": "Use Descriptive Names and Documentation",
+        "guideline1_content": "Choose tool names that clearly indicate their purpose. Provide comprehensive descriptions and parameter documentation.",
+        "guideline1_example": "@tool(\n    name=\"file_word_count\",  # Clear, specific name\n    description=\"Count words in a text file within the resources directory\",\n    parameters={\n        \"file_path\": {\n            \"type\": \"string\",\n            \"description\": \"Relative path to text file in resources directory\"\n        }\n    }\n)\ndef file_word_count(file_path: str) -> int:\n    \"\"\"Count words in a text file.\"\"\"\n    # Implementation here",
+        "guideline2_title": "Implement Robust Error Handling",
+        "guideline2_content": "Always validate inputs and handle edge cases. Provide clear, actionable error messages.",
+        "guideline2_example": "def file_word_count(file_path: str) -> int:\n    if not file_path:\n        raise ValueError(\"File path cannot be empty\")\n    \n    try:\n        validated_path = validate_file_path(file_path)\n        with open(validated_path, 'r') as f:\n            content = f.read()\n        return len(content.split())\n    except FileNotFoundError:\n        raise ValueError(f\"File not found: {file_path}\")\n    except PermissionError:\n        raise ValueError(f\"Permission denied: {file_path}\")",
+        "guideline3_title": "Use Type Hints and Validation",
+        "guideline3_content": "Include proper type hints and validate parameter types and ranges.",
+        "guideline3_example": "from typing import Union\n\ndef calculate_percentage(value: Union[int, float], total: Union[int, float]) -> float:\n    if not isinstance(value, (int, float)):\n        raise TypeError(\"Value must be a number\")\n    if not isinstance(total, (int, float)):\n        raise TypeError(\"Total must be a number\")\n    if total <= 0:\n        raise ValueError(\"Total must be positive\")\n    \n    return (value / total) * 100",
+        "common_mistakes": "- Using vague or generic tool names\n- Not validating input parameters\n- Exposing internal implementation details\n- Ignoring security considerations\n- Not handling file system errors\n- Blocking operations without timeouts\n- Poor error messages that don't help users",
+        "performance_tips": "- Cache expensive computations\n- Use lazy loading for large resources\n- Implement timeouts for external calls\n- Avoid loading entire files into memory\n- Use streaming for large data processing\n- Profile tools to identify bottlenecks",
+        "security_guidelines": "- Validate and sanitize all inputs\n- Restrict file access to designated directories\n- Implement rate limiting for resource-intensive operations\n- Never expose sensitive information in error messages\n- Use secure defaults and fail safely\n- Log security-relevant events",
+        "testing_approaches": "- Write unit tests for all tools\n- Test edge cases and error conditions\n- Use property-based testing for complex logic\n- Mock external dependencies\n- Test with various input types and sizes\n- Verify error messages are helpful",
+        "monitoring_tips": "- Log tool usage and performance metrics\n- Monitor error rates and types\n- Track resource usage\n- Set up alerts for unusual patterns\n- Use structured logging for better analysis\n- Include request IDs for tracing",
+        "checklist": "- [ ] Tool name is clear and descriptive\n- [ ] Documentation explains purpose and usage\n- [ ] All parameters have type hints and descriptions\n- [ ] Input validation is comprehensive\n- [ ] Error handling provides useful messages\n- [ ] Security considerations are addressed\n- [ ] Unit tests cover main functionality\n- [ ] Performance is acceptable for expected usage\n- [ ] Logging is appropriate and structured",
+        "resources": "- MCP Tool Development Guide\n- Security Best Practices Documentation\n- Performance Optimization Guidelines\n- Testing Framework Documentation"
+      }
+    }
+  ],
+  "tags": ["best-practices", "guidelines", "development", "quality"]
+}

@@ -1,0 +1,52 @@
+{
+  "mcpServers": {
+    "mcp-learning-server": {
+      "command": "python",
+      "args": [
+        "-m",
+        "mcp_server"
+      ],
+      "cwd": "/path/to/mcp-learning-server",
+      "env": {
+        "PYTHONPATH": "/path/to/mcp-learning-server",
+        "MCP_DEBUG": "false",
+        "MCP_LOG_LEVEL": "INFO"
+      }
+    },
+    "mcp-learning-server-debug": {
+      "command": "python",
+      "args": [
+        "-m",
+        "mcp_server",
+        "--debug",
+        "--log-level",
+        "DEBUG"
+      ],
+      "cwd": "/path/to/mcp-learning-server",
+      "env": {
+        "PYTHONPATH": "/path/to/mcp-learning-server",
+        "MCP_DEBUG": "true",
+        "MCP_LOG_LEVEL": "DEBUG"
+      }
+    },
+    "mcp-learning-server-custom": {
+      "command": "python",
+      "args": [
+        "-m",
+        "mcp_server",
+        "--config",
+        "custom_config.json"
+      ],
+      "cwd": "/path/to/mcp-learning-server",
+      "env": {
+        "PYTHONPATH": "/path/to/mcp-learning-server",
+        "MCP_CONFIG_FILE": "custom_config.json"
+      }
+    }
+  },
+  "globalShortcut": "Cmd+Shift+M",
+  "allowAnalytics": false,
+  "theme": "dark",
+  "fontSize": 14,
+  "fontFamily": "SF Mono, Monaco, Inconsolata, 'Roboto Mono', Consolas, 'Courier New', monospace"
+}

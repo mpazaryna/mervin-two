@@ -1,0 +1,65 @@
+{
+  "mcp_overview": {
+    "path": "learning/mcp_overview.md",
+    "title": "MCP Overview",
+    "description": "Introduction to Model Context Protocol fundamentals and concepts",
+    "mime_type": "text/markdown",
+    "tags": ["mcp", "overview", "introduction", "protocol"]
+  },
+  "mcp_resources": {
+    "path": "learning/resources.md",
+    "title": "MCP Learning Resources",
+    "description": "Curated list of MCP documentation, tutorials, and learning materials",
+    "mime_type": "text/markdown",
+    "tags": ["mcp", "learning", "documentation", "tutorials"]
+  },
+  "client_config_example": {
+    "path": "examples/client_config.json",
+    "title": "Example Client Configuration",
+    "description": "Sample configuration for MCP clients like Claude Desktop",
+    "mime_type": "application/json",
+    "tags": ["configuration", "client", "example", "setup"]
+  },
+  "server_config_example": {
+    "path": "examples/server_config.json",
+    "title": "Example Server Configuration",
+    "description": "Sample configuration for MCP Learning Server",
+    "mime_type": "application/json",
+    "tags": ["configuration", "server", "example", "setup"]
+  },
+  "tool_development_guide": {
+    "path": "learning/tool_development.md",
+    "title": "Tool Development Guide",
+    "description": "Guide for creating custom MCP tools and best practices",
+    "mime_type": "text/markdown",
+    "tags": ["tools", "development", "guide", "best-practices"]
+  },
+  "api_reference": {
+    "path": "docs/api.md",
+    "title": "API Reference",
+    "description": "Complete API reference for the MCP Learning Server",
+    "mime_type": "text/markdown",
+    "tags": ["api", "reference", "documentation"]
+  },
+  "troubleshooting": {
+    "path": "learning/troubleshooting.md",
+    "title": "Troubleshooting Guide",
+    "description": "Common issues and solutions for MCP Learning Server",
+    "mime_type": "text/markdown",
+    "tags": ["troubleshooting", "help", "issues", "solutions"]
+  },
+  "sample_data": {
+    "path": "data.csv",
+    "title": "Sample Data",
+    "description": "Sample CSV data for testing file operations",
+    "mime_type": "text/csv",
+    "tags": ["data", "sample", "csv", "testing"]
+  },
+  "server_config": {
+    "path": "config.json",
+    "title": "Server Configuration",
+    "description": "Current server configuration settings",
+    "mime_type": "application/json",
+    "tags": ["configuration", "server", "settings"]
+  }
+}

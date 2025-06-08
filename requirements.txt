@@ -5,6 +5,9 @@ pydantic>=2.0.0
 # Logging and configuration
 python-dotenv>=1.0.0
 
+# Hot reload functionality (optional)
+watchdog>=3.0.0
+
 # Development and testing dependencies
 pytest>=7.0.0
 pytest-cov>=4.0.0

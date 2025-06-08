@@ -1,0 +1,68 @@
+{
+  "debug": false,
+  "hot_reload": false,
+  "log_level": "INFO",
+  "resource_dir": "./resources",
+  "tools_dir": "./tools",
+  "prompts_dir": "./prompts",
+  "metrics_enabled": false,
+  "server": {
+    "name": "MCP Learning Server",
+    "version": "0.1.0",
+    "description": "Educational MCP server for learning protocol fundamentals",
+    "author": "MCP Learning Project",
+    "license": "MIT"
+  },
+  "features": {
+    "file_reader": {
+      "enabled": true,
+      "max_file_size": 1048576,
+      "allowed_extensions": ["txt", "md", "json", "csv", "log"],
+      "security_mode": "strict"
+    },
+    "calculator": {
+      "enabled": true,
+      "precision": 10,
+      "allow_complex": false
+    },
+    "time_tools": {
+      "enabled": true,
+      "default_timezone": "UTC",
+      "formats": ["iso", "unix", "human"]
+    },
+    "resources": {
+      "enabled": true,
+      "cache_enabled": true,
+      "max_cache_size": 100,
+      "max_file_size": 10485760
+    }
+  },
+  "security": {
+    "restrict_file_access": true,
+    "allowed_directories": ["./resources"],
+    "max_request_size": 1048576,
+    "rate_limiting": {
+      "enabled": false,
+      "requests_per_minute": 60
+    }
+  },
+  "logging": {
+    "level": "INFO",
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    "file": null,
+    "max_file_size": 10485760,
+    "backup_count": 5
+  },
+  "performance": {
+    "enable_metrics": false,
+    "metrics_interval": 60,
+    "enable_profiling": false,
+    "cache_ttl": 3600
+  },
+  "development": {
+    "auto_reload": false,
+    "debug_mode": false,
+    "test_mode": false,
+    "mock_external_services": false
+  }
+}

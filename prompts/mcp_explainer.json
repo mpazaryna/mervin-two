@@ -1,0 +1,155 @@
+{
+  "title": "MCP Concept Explainer",
+  "description": "Explains core MCP concepts with examples and context",
+  "template": "# Model Context Protocol: {{concept}}\n\n## Overview\n\n{{concept}} is a fundamental component of the Model Context Protocol that {{explanation}}.\n\n## How It Works\n\n{{concept}} operates by:\n\n1. **{{step1_title}}**: {{step1_description}}\n2. **{{step2_title}}**: {{step2_description}}\n3. **{{step3_title}}**: {{step3_description}}\n\n## Practical Example\n\n```{{example_language}}\n{{example_code}}\n```\n\n{{example_explanation}}\n\n## Key Benefits\n\n- **{{benefit1}}**: {{benefit1_description}}\n- **{{benefit2}}**: {{benefit2_description}}\n- **{{benefit3}}**: {{benefit3_description}}\n\n## Best Practices\n\n{{best_practices}}\n\n## Common Pitfalls\n\n{{common_pitfalls}}\n\n## Related Concepts\n\n{{related_concepts}}\n\n---\n\n*This explanation was generated using the MCP Learning Server's interactive prompt system.*",
+  "parameters": [
+    {
+      "name": "concept",
+      "type": "string",
+      "description": "The MCP concept to explain (e.g., 'Tools', 'Resources', 'Prompts')",
+      "required": true
+    },
+    {
+      "name": "explanation",
+      "type": "string",
+      "description": "Brief explanation of what the concept does",
+      "required": true
+    },
+    {
+      "name": "step1_title",
+      "type": "string",
+      "description": "Title for the first step in how it works",
+      "required": true
+    },
+    {
+      "name": "step1_description",
+      "type": "string",
+      "description": "Description of the first step",
+      "required": true
+    },
+    {
+      "name": "step2_title",
+      "type": "string",
+      "description": "Title for the second step",
+      "required": true
+    },
+    {
+      "name": "step2_description",
+      "type": "string",
+      "description": "Description of the second step",
+      "required": true
+    },
+    {
+      "name": "step3_title",
+      "type": "string",
+      "description": "Title for the third step",
+      "required": true
+    },
+    {
+      "name": "step3_description",
+      "type": "string",
+      "description": "Description of the third step",
+      "required": true
+    },
+    {
+      "name": "example_language",
+      "type": "string",
+      "description": "Programming language for the example",
+      "required": false,
+      "default": "python"
+    },
+    {
+      "name": "example_code",
+      "type": "string",
+      "description": "Code example demonstrating the concept",
+      "required": true
+    },
+    {
+      "name": "example_explanation",
+      "type": "string",
+      "description": "Explanation of the code example",
+      "required": true
+    },
+    {
+      "name": "benefit1",
+      "type": "string",
+      "description": "First key benefit",
+      "required": true
+    },
+    {
+      "name": "benefit1_description",
+      "type": "string",
+      "description": "Description of the first benefit",
+      "required": true
+    },
+    {
+      "name": "benefit2",
+      "type": "string",
+      "description": "Second key benefit",
+      "required": true
+    },
+    {
+      "name": "benefit2_description",
+      "type": "string",
+      "description": "Description of the second benefit",
+      "required": true
+    },
+    {
+      "name": "benefit3",
+      "type": "string",
+      "description": "Third key benefit",
+      "required": true
+    },
+    {
+      "name": "benefit3_description",
+      "type": "string",
+      "description": "Description of the third benefit",
+      "required": true
+    },
+    {
+      "name": "best_practices",
+      "type": "string",
+      "description": "Best practices for using this concept",
+      "required": true
+    },
+    {
+      "name": "common_pitfalls",
+      "type": "string",
+      "description": "Common mistakes to avoid",
+      "required": true
+    },
+    {
+      "name": "related_concepts",
+      "type": "string",
+      "description": "Related MCP concepts to explore",
+      "required": true
+    }
+  ],
+  "examples": [
+    {
+      "description": "Explaining MCP Tools",
+      "arguments": {
+        "concept": "Tools",
+        "explanation": "enable AI assistants to perform actions and computations by calling predefined functions",
+        "step1_title": "Registration",
+        "step1_description": "Tools are registered with the MCP server with defined schemas",
+        "step2_title": "Discovery",
+        "step2_description": "Clients can list available tools and their parameters",
+        "step3_title": "Execution",
+        "step3_description": "Clients call tools with arguments and receive results",
+        "example_code": "@tool(name=\"calculator\", description=\"Perform arithmetic\")\ndef calculator(operation: str, a: float, b: float) -> float:\n    if operation == \"add\":\n        return a + b\n    elif operation == \"multiply\":\n        return a * b",
+        "example_explanation": "This example shows a simple calculator tool that can perform arithmetic operations.",
+        "benefit1": "Extensibility",
+        "benefit1_description": "Easy to add new functionality without changing the core protocol",
+        "benefit2": "Type Safety",
+        "benefit2_description": "Parameter schemas ensure correct usage and validation",
+        "benefit3": "Discoverability",
+        "benefit3_description": "Clients can automatically discover available capabilities",
+        "best_practices": "- Use clear, descriptive names\n- Provide comprehensive parameter schemas\n- Include helpful examples\n- Handle errors gracefully",
+        "common_pitfalls": "- Forgetting to validate inputs\n- Not handling edge cases\n- Poor error messages\n- Overly complex parameter schemas",
+        "related_concepts": "Resources (for static data), Prompts (for templates), Message Types (for communication)"
+      }
+    }
+  ],
+  "tags": ["explanation", "education", "concepts", "mcp"]
+}

@@ -184,6 +184,7 @@ def setup_tools(protocol_handler: MCPProtocolHandler,
     # Import all tool modules to trigger registration
     import tools.calculator
     import tools.utilities
+    import tools.file_tools
     
     # Create integrator
     integrator = ToolIntegrator(protocol_handler)
