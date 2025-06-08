@@ -44,9 +44,30 @@
   "troubleshooting": {
     "path": "learning/troubleshooting.md",
     "title": "Troubleshooting Guide",
-    "description": "Common issues and solutions for MCP Learning Server",
+    "description": "Comprehensive troubleshooting guide with diagnostics and solutions",
     "mime_type": "text/markdown",
-    "tags": ["troubleshooting", "help", "issues", "solutions"]
+    "tags": ["troubleshooting", "help", "issues", "solutions", "diagnostics"]
+  },
+  "getting_started": {
+    "path": "learning/getting_started.md",
+    "title": "Getting Started Guide",
+    "description": "Step-by-step guide to setting up and using the MCP Learning Server",
+    "mime_type": "text/markdown",
+    "tags": ["getting-started", "tutorial", "setup", "beginner"]
+  },
+  "custom_tools_tutorial": {
+    "path": "learning/custom_tools_tutorial.md",
+    "title": "Custom Tools Tutorial",
+    "description": "Hands-on tutorial for creating custom MCP tools with examples",
+    "mime_type": "text/markdown",
+    "tags": ["tutorial", "tools", "custom", "development", "examples"]
+  },
+  "claude_desktop_configs": {
+    "path": "examples/claude_desktop_configs.md",
+    "title": "Claude Desktop Configuration Examples",
+    "description": "Comprehensive examples for configuring Claude Desktop with MCP Learning Server",
+    "mime_type": "text/markdown",
+    "tags": ["claude-desktop", "configuration", "examples", "setup"]
   },
   "sample_data": {
     "path": "data.csv",

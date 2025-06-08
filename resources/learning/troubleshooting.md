@@ -1,6 +1,48 @@
-# Troubleshooting Guide
+# Comprehensive Troubleshooting Guide
 
 Common issues and solutions for the MCP Learning Server.
+
+## Quick Diagnostic Checklist
+
+Before diving into specific issues, run through this quick checklist:
+
+- [ ] Python 3.8+ installed and accessible (`python --version`)
+- [ ] Virtual environment activated (you see `(venv)` in prompt)
+- [ ] Dependencies installed (`pip install -r requirements.txt`)
+- [ ] Server starts manually (`python -m mcp_server --debug`)
+- [ ] Claude Desktop configuration file exists and is valid JSON
+- [ ] Absolute paths used in Claude Desktop configuration
+- [ ] Claude Desktop restarted after configuration changes
+
+## Quick Tests
+
+### Test Server Startup
+```bash
+# Test basic startup
+python -m mcp_server --debug --test-mode
+
+# Should show: "MCP Learning Server initialized successfully"
+```
+
+### Test Tool Loading
+```bash
+# Check tools are registered
+python -c "
+from tools.registry import get_tool_registry
+registry = get_tool_registry()
+print(f'Loaded {len(registry)} tools: {list(registry.keys())}')
+"
+```
+
+### Test Configuration
+```bash
+# Validate configuration
+python -c "
+from mcp_server.config import MCPServerConfig
+config = MCPServerConfig()
+print(f'Config loaded: debug={config.debug}, log_level={config.log_level}')
+"
+```
 
 ## Connection Issues
 

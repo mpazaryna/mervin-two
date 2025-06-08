@@ -15,6 +15,9 @@ from .protocol import MCPProtocolHandler, create_protocol_handler
 from .messages import MessageType, parse_message, create_error_message
 from .logging_config import setup_logger, get_logger
 from .stdio_transport import StdioTransport, SimpleStdioTransport
+from .app import MCPLearningServer
+from .config import MCPServerConfig
+from .metrics import PerformanceMetrics
 
 __all__ = [
     "MCPServer",
