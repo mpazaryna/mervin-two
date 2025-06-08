@@ -1,0 +1,11 @@
+This is a sample text file for testing the file reader tool.
+
+It contains multiple lines of text to demonstrate file reading capabilities.
+
+You can use this file to test:
+- Basic file reading functionality
+- Text encoding handling
+- Multi-line content processing
+
+This file is located in the resources directory and can be accessed
+through the file_reader tool with the path "sample.txt".

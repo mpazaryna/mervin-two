@@ -1,0 +1,14 @@
+{
+  "debug": false,
+  "hot_reload": false,
+  "log_level": "INFO",
+  "resource_dir": "./resources",
+  "tools_dir": "./tools",
+  "prompts_dir": "./prompts",
+  "metrics_enabled": false,
+  "server": {
+    "name": "MCP Learning Server",
+    "version": "0.1.0",
+    "description": "Educational MCP server for learning protocol fundamentals"
+  }
+}

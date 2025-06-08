@@ -1,0 +1,151 @@
+# Product Requirements Document: MCP Learning Server
+
+## Overview
+A simple Python-based Model Context Protocol (MCP) server designed to help users learn MCP fundamentals through hands-on implementation and experimentation.
+
+## Product Goals
+- Provide a minimal, educational MCP server implementation in Python, use venv to manage dependencies
+- Demonstrate core MCP concepts including tools, resources, and prompts
+- Enable rapid prototyping and learning of MCP patterns
+- Serve as a foundation for building more complex MCP applications
+
+## Target Users
+- **Primary**: Developers learning Model Context Protocol
+- **Secondary**: AI application builders exploring MCP integration
+- **Tertiary**: Students and educators in AI/LLM courses
+
+## Core Features
+
+### 1. Basic MCP Server Framework
+**Priority**: P0
+- Implement MCP protocol handlers for initialization, tools, resources, and prompts
+- Support standard MCP message types (ping, list_tools, call_tool, etc.)
+- Handle client connections via stdio transport
+- Provide clear error handling and logging
+
+### 2. Educational Tool Examples
+**Priority**: P0
+- **Calculator tool**: Basic arithmetic operations to demonstrate tool calling
+- **File reader tool**: Read local text files to show resource access patterns
+- **Echo tool**: Simple input/output demonstration
+- **Time tool**: Current timestamp utility
+
+### 3. Sample Resources
+**Priority**: P1
+- **Learning materials**: Static educational content about MCP
+- **Example configurations**: Sample MCP client configurations
+- **Documentation links**: Curated learning resources
+
+### 4. Interactive Prompts
+**Priority**: P1
+- **MCP explainer**: Generate explanations of MCP concepts
+- **Code examples**: Provide MCP implementation examples
+- **Best practices**: Share MCP development guidelines
+
+### 5. Development Features
+**Priority**: P2
+- Hot reload capability for rapid development
+- Debug mode with verbose logging
+- Configuration file support
+- Basic performance metrics
+
+## Technical Requirements
+
+### Architecture
+- **Language**: Python 3.8+
+- **Dependencies**: Minimal external libraries (prefer standard library)
+- **Transport**: stdio (with potential for HTTP/WebSocket expansion)
+- **Protocol**: MCP specification compliance
+
+### Performance
+- Handle 10+ concurrent tool calls
+- Sub-100ms response time for simple operations
+- Memory usage under 50MB baseline
+
+### Compatibility
+- Cross-platform (Windows, macOS, Linux)
+- Compatible with Claude Desktop and other MCP clients
+- Follow MCP specification version 1.0
+
+## User Stories
+
+### Learning Flow
+1. **As a developer**, I want to run a simple MCP server so I can understand the basic protocol flow
+2. **As a learner**, I want to call tools from Claude to see how MCP enables AI-tool integration
+3. **As a student**, I want to modify the server code to experiment with custom tools
+4. **As an educator**, I want clear examples to demonstrate MCP concepts in class
+
+### Development Flow
+1. **As a developer**, I want to add new tools easily so I can extend functionality
+2. **As a builder**, I want to see debug output so I can troubleshoot MCP interactions
+3. **As a contributor**, I want good code structure so I can understand and modify the implementation
+
+## Success Metrics
+
+### Learning Objectives
+- Users can successfully connect Claude to the MCP server within 5 minutes
+- Users can call at least 3 different tools and understand the request/response flow
+- Users can modify or add a simple tool within 15 minutes of setup
+
+### Technical Metrics
+- Zero-crash server operation for basic use cases
+- 100% MCP protocol compliance for implemented features
+- Clear error messages for common mistakes
+
+## Out of Scope (V1)
+- Advanced authentication/security features
+- Database integrations
+- Complex business logic tools
+- Production-grade monitoring
+- Multi-client session management
+- GUI interface
+
+## Implementation Phases
+
+### Phase 1: Core Server (Week 1)
+- Basic MCP protocol implementation
+- stdio transport layer
+- Simple calculator and echo tools
+- Basic error handling
+
+### Phase 2: Educational Features (Week 2)
+- File reading capabilities
+- Learning resource endpoints
+- Documentation and examples
+- Debug logging
+
+### Phase 3: Polish & Documentation (Week 3)
+- Comprehensive README with setup instructions
+- Code comments and docstrings
+- Example client configurations
+- Troubleshooting guide
+
+## Risks & Mitigations
+
+### Technical Risks
+- **MCP spec complexity**: Start with minimal implementation, expand gradually
+- **Transport reliability**: Use well-tested stdio patterns, add reconnection logic
+- **Cross-platform issues**: Test on all major platforms early
+
+### User Experience Risks
+- **Setup complexity**: Provide clear installation scripts and documentation
+- **Learning curve**: Include step-by-step tutorials and common examples
+- **Debug difficulty**: Implement comprehensive logging and error messages
+
+## Appendix
+
+### MCP Resources
+- [Official MCP Specification](https://spec.modelcontextprotocol.io/)
+- [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk)
+- [Claude Desktop MCP Guide](https://docs.anthropic.com/en/docs/build-with-claude/mcp)
+
+### Example Tool Structure
+```python
+@tool
+def calculator(operation: str, a: float, b: float) -> float:
+    """Perform basic arithmetic operations"""
+    # Implementation details
+    pass
+```
+
+This PRD provides a clear roadmap for building an educational MCP server that balances simplicity with comprehensive learning opportunities.
