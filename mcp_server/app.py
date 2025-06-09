@@ -96,7 +96,9 @@ class MCPLearningServer:
         setup_logger(
             level=self.config.log_level,
             format_string=self.config.log_format,
-            log_file=self.config.log_file
+            log_file=self.config.log_file,
+            log_max_size=self.config.log_max_size,
+            log_backup_count=self.config.log_backup_count
         )
         self.logger = get_logger("mcp_app")
     

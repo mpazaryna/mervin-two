@@ -26,6 +26,52 @@ def test_logging_setup():
     assert logger.level == 10  # DEBUG level
 
 
+def test_logging_setup_with_file():
+    """Test that logging configuration works with file logging."""
+    import tempfile
+
+    # Test with file logging
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.log') as f:
+        log_file = f.name
+
+    try:
+        logger = setup_logger("test_file_logger", "INFO", log_file=log_file)
+        assert logger.name == "test_file_logger"
+        assert logger.level == 20  # INFO level
+
+        # Test that we can log to the file
+        logger.info("Test message")
+
+        # Check if log file was created and has content
+        assert os.path.exists(log_file)
+        with open(log_file, 'r') as f:
+            content = f.read()
+            assert "Test message" in content
+
+    finally:
+        # Clean up
+        if os.path.exists(log_file):
+            os.unlink(log_file)
+
+
+def test_mcp_server_initialization():
+    """Test that MCPLearningServer can be initialized without errors."""
+    from mcp_server.config import MCPServerConfig
+    from mcp_server.app import MCPLearningServer
+
+    # Create config
+    config = MCPServerConfig()
+    config.debug = True
+
+    # This should not fail with the log_file parameter error
+    server = MCPLearningServer(config)
+    assert server is not None
+    assert server.config.debug is True
+
+    # Clean shutdown
+    server.shutdown()
+
+
 def test_get_logger():
     """Test getting an existing logger."""
     logger1 = get_logger("test_logger_2")
